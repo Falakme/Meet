@@ -3,23 +3,28 @@
 import { useEffect, useState } from "react"
 import { useParams, useSearchParams } from "next/navigation"
 
-export default function JoinMeetingPage() {
+export default function GoogleMeetPage() {
   const params = useParams()
   const searchParams = useSearchParams()
   const [deepLink, setDeepLink] = useState<string>("")
 
   const meetingId = params.meetingId as string
-  const password = searchParams.get("pwd")
+  const authuser = searchParams.get("authuser")
+  const sc = searchParams.get("sc")
 
   useEffect(() => {
     if (meetingId) {
-      let link = `zoomus://zoom.us/join?confno=${meetingId}`
-      if (password) {
-        link += `&pwd=${password}`
+      let link = `googlemeet://meet.google.com/_meet/${meetingId}`
+      const queryParams = new URLSearchParams()
+      if (sc) queryParams.append("sc", sc)
+      if (authuser) queryParams.append("authuser", authuser)
+      
+      if (queryParams.toString()) {
+        link += `?${queryParams.toString()}`
       }
       setDeepLink(link)
     }
-  }, [meetingId, password])
+  }, [meetingId, authuser, sc])
 
   const handleJoinApp = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -30,9 +35,13 @@ export default function JoinMeetingPage() {
 
   const handleJoinBrowser = () => {
     if (meetingId) {
-      let browserUrl = `https://zoom.us/wc/join/${meetingId}`
-      if (password) {
-        browserUrl += `?pwd=${password}`
+      let browserUrl = `https://meet.google.com/_meet/${meetingId}`
+      const queryParams = new URLSearchParams()
+      if (sc) queryParams.append("sc", sc)
+      if (authuser) queryParams.append("authuser", authuser)
+      
+      if (queryParams.toString()) {
+        browserUrl += `?${queryParams.toString()}`
       }
       window.location.href = browserUrl
     }
@@ -51,7 +60,7 @@ export default function JoinMeetingPage() {
       <main className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="max-w-2xl w-full text-center space-y-8">
           <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-gray-900">Join Zoom Meeting</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Join Google Meet</h2>
             <p className="text-gray-600 text-lg">
               Meeting ID: <span className="font-mono font-semibold">{meetingId}</span>
             </p>
@@ -63,7 +72,7 @@ export default function JoinMeetingPage() {
               onClick={handleJoinApp}
               className="w-full h-12 px-6 bg-[#2D8CFF] hover:bg-[#1a73e8] text-white font-medium rounded-md transition-colors"
             >
-              Open in Zoom App
+              Open in Google Meet App
             </button>
             
             <button
@@ -76,7 +85,7 @@ export default function JoinMeetingPage() {
 
           {/* Info Text */}
           <p className="text-sm text-gray-500">
-            Click "Open in Zoom App" to launch the desktop or mobile app,
+            Click "Open in Google Meet App" to launch the desktop or mobile app,
             <br />
             or "Join from Browser" to join via web browser.
           </p>
