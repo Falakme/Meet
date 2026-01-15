@@ -6,37 +6,25 @@ import { useParams, useSearchParams } from "next/navigation"
 export default function JoinMeetingPage() {
   const params = useParams()
   const searchParams = useSearchParams()
-  const [deepLink, setDeepLink] = useState<string>("")
+  const [appLink, setAppLink] = useState<string>("")
+  const [browserUrl, setBrowserUrl] = useState<string>("")
 
   const meetingId = params.meetingId as string
   const password = searchParams.get("pwd")
 
   useEffect(() => {
     if (meetingId) {
+      // App deep link
       let link = `zoomus://zoom.us/join?confno=${meetingId}`
-      if (password) {
-        link += `&pwd=${password}`
-      }
-      setDeepLink(link)
+      if (password) link += `&pwd=${password}`
+      setAppLink(link)
+      
+      // Browser URL
+      let url = `https://zoom.us/wc/join/${meetingId}`
+      if (password) url += `?pwd=${password}`
+      setBrowserUrl(url)
     }
   }, [meetingId, password])
-
-  const handleJoinApp = (e: React.MouseEvent) => {
-    e.preventDefault()
-    if (!deepLink) return
-
-    window.location.href = deepLink
-  }
-
-  const handleJoinBrowser = () => {
-    if (meetingId) {
-      let browserUrl = `https://zoom.us/wc/join/${meetingId}`
-      if (password) {
-        browserUrl += `?pwd=${password}`
-      }
-      window.location.href = browserUrl
-    }
-  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -59,19 +47,19 @@ export default function JoinMeetingPage() {
 
           {/* Join Options */}
           <div className="space-y-4 max-w-md mx-auto">
-            <button
-              onClick={handleJoinApp}
-              className="w-full h-12 px-6 bg-[#2D8CFF] hover:bg-[#1a73e8] text-white font-medium rounded-md transition-colors"
+            <a
+              href={appLink}
+              className="block w-full h-12 px-6 bg-[#2D8CFF] hover:bg-[#1a73e8] text-white font-medium rounded-md transition-colors flex items-center justify-center"
             >
               Open in Zoom App
-            </button>
+            </a>
             
-            <button
-              onClick={handleJoinBrowser}
-              className="w-full h-12 px-6 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-md transition-colors"
+            <a
+              href={browserUrl}
+              className="block w-full h-12 px-6 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-md transition-colors flex items-center justify-center"
             >
               Join from Browser
-            </button>
+            </a>
           </div>
 
           {/* Info Text */}

@@ -6,7 +6,8 @@ import { useParams, useSearchParams } from "next/navigation"
 export default function GoogleMeetPage() {
   const params = useParams()
   const searchParams = useSearchParams()
-  const [deepLink, setDeepLink] = useState<string>("")
+  const [appLink, setAppLink] = useState<string>("")
+  const [browserUrl, setBrowserUrl] = useState<string>("")
 
   const meetingId = params.meetingId as string
   const authuser = searchParams.get("authuser")
@@ -14,38 +15,22 @@ export default function GoogleMeetPage() {
 
   useEffect(() => {
     if (meetingId) {
-      let link = `googlemeet://meet.google.com/_meet/${meetingId}`
       const queryParams = new URLSearchParams()
       if (sc) queryParams.append("sc", sc)
       if (authuser) queryParams.append("authuser", authuser)
+      const queryString = queryParams.toString()
       
-      if (queryParams.toString()) {
-        link += `?${queryParams.toString()}`
-      }
-      setDeepLink(link)
+      // App deep link
+      let link = `googlemeet://meet.google.com/${meetingId}`
+      if (queryString) link += `?${queryString}`
+      setAppLink(link)
+      
+      // Browser URL
+      let url = `https://meet.google.com/${meetingId}`
+      if (queryString) url += `?${queryString}`
+      setBrowserUrl(url)
     }
   }, [meetingId, authuser, sc])
-
-  const handleJoinApp = (e: React.MouseEvent) => {
-    e.preventDefault()
-    if (!deepLink) return
-
-    window.location.href = deepLink
-  }
-
-  const handleJoinBrowser = () => {
-    if (meetingId) {
-      let browserUrl = `https://meet.google.com/_meet/${meetingId}`
-      const queryParams = new URLSearchParams()
-      if (sc) queryParams.append("sc", sc)
-      if (authuser) queryParams.append("authuser", authuser)
-      
-      if (queryParams.toString()) {
-        browserUrl += `?${queryParams.toString()}`
-      }
-      window.location.href = browserUrl
-    }
-  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -68,19 +53,19 @@ export default function GoogleMeetPage() {
 
           {/* Join Options */}
           <div className="space-y-4 max-w-md mx-auto">
-            <button
-              onClick={handleJoinApp}
-              className="w-full h-12 px-6 bg-[#2D8CFF] hover:bg-[#1a73e8] text-white font-medium rounded-md transition-colors"
+            <a
+              href={appLink}
+              className="block w-full h-12 px-6 bg-[#2D8CFF] hover:bg-[#1a73e8] text-white font-medium rounded-md transition-colors flex items-center justify-center"
             >
               Open in Google Meet App
-            </button>
+            </a>
             
-            <button
-              onClick={handleJoinBrowser}
-              className="w-full h-12 px-6 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-md transition-colors"
+            <a
+              href={browserUrl}
+              className="block w-full h-12 px-6 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-md transition-colors flex items-center justify-center"
             >
               Join from Browser
-            </button>
+            </a>
           </div>
 
           {/* Info Text */}
