@@ -55,16 +55,6 @@ export default function HomePage() {
           </form>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 py-6 px-6">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-xs text-gray-500 text-center mb-3">
-            ©2025 Falak Meet, All rights reserved.
-          </p>
-          
-        </div>
-      </footer>
     </div>
   )
 }

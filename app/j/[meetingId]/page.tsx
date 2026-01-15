@@ -25,18 +25,7 @@ export default function JoinMeetingPage() {
     e.preventDefault()
     if (!deepLink) return
 
-    // Attempt to open the custom protocol
     window.location.href = deepLink
-
-    // Fallback: If the app doesn't open, we can't catch the console error directly.
-    // We wait and assume if they are still here (or just purely on timeout), we open the browser link.
-    setTimeout(() => {
-      let browserUrl = `https://zoom.us/wc/join/${meetingId}`
-      if (password) {
-        browserUrl += `?pwd=${password}`
-      }
-      window.open(browserUrl, "_blank")
-    }, 2500)
   }
 
   const handleJoinBrowser = () => {
@@ -62,11 +51,11 @@ export default function JoinMeetingPage() {
       <main className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="max-w-2xl w-full text-center space-y-8">
           <div className="space-y-4">
-            <div className="max-w-md mx-auto">
+            <div className="max-w-sm mx-auto">
               <a
                 href={deepLink}
                 onClick={handleJoinApp}
-                className="block w-full bg-[#2D8CFF] hover:bg-[#1E6FCC] text-white font-medium py-6 rounded-lg text-base transition-colors"
+                className="block bg-[#2D8CFF] hover:bg-[#1E6FCC] text-white font-medium py-6 rounded-lg text-xl transition-colors"
               >
                 Join from Zoom Workplace app
               </a>
@@ -83,13 +72,6 @@ export default function JoinMeetingPage() {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 py-6 px-6">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-xs text-gray-500 text-center mb-3">©2025 Falak Meet, All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   )
 }
