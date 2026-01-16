@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useSearchParams } from "next/navigation"
-import Image from "next/image"
-import Link from "next/link"
+import { PageHeader } from "@/components/page-header"
 
 export default function GoogleMeetPage() {
   const params = useParams()
@@ -29,12 +28,7 @@ export default function GoogleMeetPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col">
-      {/* Header */}
-      <header className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-        <Link href="/">
-          <Image src="/logo.svg" alt="Falak Meet" width={143} height={30} className="dark:invert" priority />
-        </Link>
-      </header>
+      <PageHeader />
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-6 py-12">
