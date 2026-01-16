@@ -27,7 +27,7 @@ export default function GoogleMeetPage() {
   }, [meetingId, authuser, sc])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-black flex flex-col">
       <PageHeader />
 
       {/* Main Content */}
