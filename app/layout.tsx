@@ -26,6 +26,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/logo.svg" as="image" type="image/svg+xml" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') || 'system';
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const appliedTheme = theme === 'system' ? systemTheme : theme;
+                document.documentElement.classList.toggle('dark', appliedTheme === 'dark');
+              } catch (e) {}
+            `,
+          }}
+        />
       </head>
       <body className={`font-sans antialiased`}>
         <ThemeProvider
