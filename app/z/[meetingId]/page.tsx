@@ -58,11 +58,12 @@ export default function JoinMeetingPage() {
         </div>
 
         {/* Info Text */}
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Click "Open in Zoom App" to launch the desktop or mobile app,
-          <br />
-          or "Join from Browser" to join via web browser.
-        </p>
+        <div className="max-w-md mx-auto">
+          <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+            Click "Open in Zoom App" to launch the desktop or mobile app,
+            or "Join from Browser" to join via web browser.
+          </p>
+        </div>
       </MainLayout>
     </div>
   )
