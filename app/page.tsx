@@ -34,7 +34,7 @@ export default function HomePage() {
 
       <MainLayout>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome to Falak Meet</h2>
+          <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">Welcome to Falak Meet</h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">Enter your meeting ID to join</p>
         </div>
 

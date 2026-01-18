@@ -1,3 +1,5 @@
+@import url('https://falakme.github.io/BrandAssets/fonts/falaksans.css');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -75,10 +77,8 @@
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
+  --font-sans: "FalakSans", "Geist", "Geist Fallback";
   --font-mono: "Geist Mono", "Geist Mono Fallback";
-  /* Added Montserrat Alternates font variable */
-  --font-logo: "Montserrat Alternates", "Montserrat Alternates Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

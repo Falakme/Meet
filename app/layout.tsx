@@ -39,7 +39,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans antialiased`}>
+      <body className={`font-falak antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

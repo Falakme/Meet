@@ -33,7 +33,7 @@ export default function GoogleMeetPage() {
 
       <MainLayout>
         <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Join Google Meet</h2>
+          <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">Join Google Meet</h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             Meeting ID: <span className="font-mono font-semibold">{meetingId}</span>
           </p>
