@@ -7,10 +7,11 @@ export function PageHeader() {
       <div className="flex items-center gap-2">
         <Link href="/">
           <Image 
-            src="/logo.svg" 
+            src="https://falakme.github.io/BrandAssets/logos/products/falak-meet.svg" 
             alt="Falak Meet" 
-            width={160} 
-            height={32} 
+            width={0}
+            height={0}
+            style={{ width: 'auto', height: '32px' }}
             className="dark:invert" 
             priority 
           />
